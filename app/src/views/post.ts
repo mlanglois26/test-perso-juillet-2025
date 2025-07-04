@@ -1,31 +1,31 @@
 export function getPostForm() {
   return `
-        <form class="h-auto w-1/2 mx-auto mt-8">
+        <form id="log-form" class="h-auto w-1/2 mx-auto mt-8">
           <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2" for="grid-message">
+              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Message
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text">
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="message" type="text">
             </div>
           </div>
 
           <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2" for="grid-service">
+              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Service
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text">
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="service" type="text">
             </div>
           </div>
 
           <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
             <div class="w-full md:w-1/2 px-3">
-              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2" for="grid-level">
+              <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Level
               </label>
               <div class="relative">
-                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                <select class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="level">
                   <option>INFO</option>
                   <option>WARNING</option>
                   <option>ERROR</option>
@@ -36,6 +36,12 @@ export function getPostForm() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
+            <button class="shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+              Submit
+            </button>
           </div>
         </form>
   `;

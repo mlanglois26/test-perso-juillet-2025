@@ -1,25 +1,29 @@
+# from fastapi import FastAPI
+
+
+# app = FastAPI()
+
+# @app.get("/")
+# async def root():
+#     return {"message": "Hello World"}
+
+
+
+# @app.post("/logs")
+# async def create_log(log: Log):
+#     timestamp = datetime.now(timezone.utc).isoformat()
+#     return {
+#         "message": "Log reçu",
+#         "data": log,
+#         "timestamp": timestamp
+#     }
+
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
-from datetime import datetime, timezone
+from src.back.routes.logs import router as logs_router
+from src.back.middleware.cors import setup_cors
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
+setup_cors(app)
 
-class Log(BaseModel):
-    """Représente une entrée de log"""
-    message: str = Field(..., min_length=10, description="Contenu du log")
-    level: str = Field(..., pattern="^(INFO|WARNING|ERROR|DEBUG)$", description="Niveau du log")
-    service: str = Field(..., min_length=3, description="Nom du service")
-
-
-@app.post("/logs")
-async def create_log(log: Log):
-    timestamp = datetime.now(timezone.utc).isoformat()
-    return {
-        "message": "Log reçu",
-        "data": log,
-        "timestamp": timestamp
-    }
+app.include_router(logs_router)

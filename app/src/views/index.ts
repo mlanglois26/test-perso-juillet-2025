@@ -21,3 +21,36 @@ document.body.innerHTML = `
     </div>
 
 `;
+
+const form = document.getElementById('log-form') as HTMLFormElement;
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const messageInput = document.getElementById('message') as HTMLInputElement;
+  const levelInput = document.getElementById('level') as HTMLSelectElement;
+  const serviceInput = document.getElementById('service') as HTMLInputElement;
+
+  const data = {
+    message: messageInput.value.trim(),
+    level: levelInput.value,
+    service: serviceInput.value.trim(),
+  };
+
+  console.log('data: ', data);
+
+  try {
+    const res = await fetch('http://localhost:8000/logs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data),
+    });
+
+    // const result = await res.json();
+
+  } catch (error) {
+    console.log('Error: ', error);
+  }
+});
