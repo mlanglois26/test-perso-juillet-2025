@@ -9,7 +9,8 @@ services:
       - ../app:/app
     networks:
       - app-network
-
+    depends_on:
+      - opensearch-node
 
   frontend:
     build:
@@ -27,23 +28,23 @@ services:
     depends_on:
       - backend
 
-  # opensearch-node:
-  #   image: opensearchproject/opensearch:2.11.1
-  #   container_name: opensearch-node
-  #   environment:
-  #     - discovery.type=single-node
-  #     - "DISABLE_SECURITY_PLUGIN=true"
-  #     - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-  #   volumes:
-  #     - opensearch-data:/usr/share/opensearch/data
-  #   networks:
-  #     - app-network
-  #   ports:
-  #     - "9200:9200"
-  #     - "9600:9600"
+  opensearch-node:
+    image: opensearchproject/opensearch:2.11.1
+    container_name: opensearch-node
+    environment:
+      - discovery.type=single-node
+      - "DISABLE_SECURITY_PLUGIN=true"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    networks:
+      - app-network
+    ports:
+      - "9200:9200"
+      - "9600:9600"
 
-# volumes:
-#   opensearch-data:
+volumes:
+  opensearch-data:
 
 networks:
   app-network:
