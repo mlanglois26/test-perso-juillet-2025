@@ -5,8 +5,9 @@ services:
       dockerfile: ../docker/back/Dockerfile
     ports:
       - "8000:8000"
-    depends_on:
-      - opensearch-node
+    networks:
+      - app-network
+
 
   frontend:
     build:
@@ -14,21 +15,33 @@ services:
       dockerfile: ../docker/front/Dockerfile
     ports:
       - "3000:5173"
+    networks:
+      - app-network
+    volumes:
+      - ../app:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://backend:8000
     depends_on:
       - backend
 
-  opensearch-node:
-    image: opensearchproject/opensearch:2.11.1
-    container_name: opensearch-node
-    environment:
-      - discovery.type=single-node
-      - "DISABLE_SECURITY_PLUGIN=true"
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-    volumes:
-      - opensearch-data:/usr/share/opensearch/data
-    ports:
-      - "9200:9200"
-      - "9600:9600"
+  # opensearch-node:
+  #   image: opensearchproject/opensearch:2.11.1
+  #   container_name: opensearch-node
+  #   environment:
+  #     - discovery.type=single-node
+  #     - "DISABLE_SECURITY_PLUGIN=true"
+  #     - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   volumes:
+  #     - opensearch-data:/usr/share/opensearch/data
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "9200:9200"
+  #     - "9600:9600"
 
-volumes:
-  opensearch-data:
+# volumes:
+#   opensearch-data:
+
+networks:
+  app-network:

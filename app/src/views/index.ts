@@ -1,5 +1,7 @@
-const app = document.getElementById('app');
+import '../style.css';
 
-if (app) {
-  app.innerHTML = "<h1>Hello depuis Vite + TypeScript !</h1>";
-}
+document.querySelector('#app')!.innerHTML = `
+  <h1 class="underline text-red-600">
+    Test couleur Tailwind
+  </h1>
+`;
