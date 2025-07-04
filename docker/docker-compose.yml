@@ -5,6 +5,8 @@ services:
       dockerfile: ../docker/back/Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ../app:/app
     networks:
       - app-network
 
