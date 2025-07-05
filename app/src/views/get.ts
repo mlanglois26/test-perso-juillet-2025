@@ -7,7 +7,7 @@
 // }
 
 export async function printLogs() {
-  const response = await fetch('http://localhost:8000/logs');
+  const response = await fetch('http://localhost:8000/api/logs');
   const logs = await response.json();
 
   let html = `

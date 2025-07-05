@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const query = document.getElementById("searchInput").value.trim();
       if (!query) return;
 
-      const res = await fetch(`http://localhost:8000/search?query=${encodeURIComponent(query)}`);
+      const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
       const data = await res.json();
 
       const resultsDiv = document.getElementById("searchResults");
@@ -82,7 +82,7 @@ printLogs().then(html => {
 //   console.log('data: ', data);
 
 //   try {
-//     const res = await fetch('http://localhost:8000/logs', {
+//     const res = await fetch('http://localhost:8000/api/log', {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json'
