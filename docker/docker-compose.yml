@@ -43,6 +43,17 @@ services:
       - "9200:9200"
       - "9600:9600"
 
+  seed:
+    image: python:3.11
+    container_name: seed
+    volumes:
+      - ./seed.py:/seed.py
+    command: sh -c "pip install opensearch-py faker && python seed.py"
+    networks:
+      - app-network
+    depends_on:
+      - opensearch-node
+
 volumes:
   opensearch-data:
 

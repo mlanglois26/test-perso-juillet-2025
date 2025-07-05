@@ -11,16 +11,16 @@ export async function printLogs() {
   const logs = await response.json();
 
   let html = `
-    <div class="bg-stone-300 h-auto w-1/2 mx-auto mt-8 p-4 text-white space-y-4">
+    <div class="bg-stone-300 h-auto w-1/2 mx-auto mt-8 p-4 text-white space-y-4 rounded">
   `;
 
   if (Array.isArray(logs)) {
     logs.forEach(log => {
       html += `
-        <div class="bg-purple-800 p-2 rounded">
-          <p><strong>Message:</strong> ${log.message}</p>
-          <p><strong>Service:</strong> ${log.service}</p>
-          <p><strong>Level:</strong> ${log.level}</p>
+        <div class="bg-violet-900 p-2 rounded">
+          <p>Message: ${log.message}</p>
+          <p>Service: ${log.service}</p>
+          <p>Level: ${log.level}</p>
         </div>
       `;
     });
