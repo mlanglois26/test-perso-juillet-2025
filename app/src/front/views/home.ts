@@ -10,7 +10,7 @@ export function renderHome() {
 
   document.body.innerHTML = `
 
-    <div class="h-auto w-full bg-violet-900 flex justify-center items-end">
+    <div class="min-h-full w-full bg-violet-900 flex justify-center">
 
       <div class="h-auto w-3/5 mt-6 pt-6">
 

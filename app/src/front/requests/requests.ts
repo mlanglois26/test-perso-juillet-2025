@@ -33,10 +33,12 @@ export function setupFormListener() {
   });
 }
 
+// les 20 derniers
 export async function displayLogs() {
 
   const container = document.getElementById('logs-container');
-  if (!container) return;
+  if (!container)
+    return;
 
   try {
     const response = await fetch('http://localhost:8000/api/logs');
@@ -52,38 +54,49 @@ export async function displayLogs() {
   }
 }
 
+// result de la query
+export function renderLogs(logs) {
+  const container = document.getElementById('logs-container');
+  if (!container)
+    return;
+
+  if (Array.isArray(logs) && logs.length > 0) {
+    container.innerHTML = logs.map(card).join('');
+  } else {
+    container.innerHTML = "<p class='text-center text-stone-100 text-1xl mt-6'>Aucun résultat trouvé.</p>";
+  }
+}
 
 export function setupSearchBarListener() {
-
   const form = document.getElementById("searchForm");
+  const resetBtn = document.getElementById("resetBtn");
 
   if (form) {
-    form.addEventListener("submit", async function (event) {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
-      const query = document.getElementById("searchInput").value.trim();
-      if (!query) return;
+      const query = (document.getElementById("searchInput") as HTMLInputElement).value.trim();
+      if (!query)
+        return;
 
-      const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
-      const data = await res.json();
+      try {
+        const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
+        const data = await res.json();
 
-      const resultsDiv = document.getElementById("searchResults");
-      resultsDiv.innerHTML = "";
-
-      if (Array.isArray(data) && data.length > 0) {
-        data.forEach(log => {
-          resultsDiv.innerHTML += `
-            <div class="bg-purple-800 text-white p-2 rounded">
-              <p><strong>Message:</strong> ${log.message}</p>
-              <p><strong>Service:</strong> ${log.service}</p>
-              <p><strong>Level:</strong> ${log.level}</p>
-              <p><strong>Date:</strong> ${log.timestamp}</p>
-            </div>
-          `;
-        });
-      } else {
-        resultsDiv.innerHTML = "<p>Aucun résultat trouvé.</p>";
+        renderLogs(data);
+      } catch (error) {
+        const container = document.getElementById("logs-container");
+        if (container) {
+          container.innerHTML = `<p>Erreur réseau</p>`;
+        }
       }
     });
-  };
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      (document.getElementById("searchInput") as HTMLInputElement).value = "";
+      displayLogs();
+    });
+  }
 }
