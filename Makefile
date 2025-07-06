@@ -1,5 +1,13 @@
-all:
+all: build up
+
+up:
 	docker compose -f ./docker/docker-compose.yml up
+
+build:
+	docker compose -f ./docker/docker-compose.yml build
+
+rebuild:
+	docker compose -f ./docker/docker-compose.yml build --no-cache
 
 stop:
 	docker compose -f ./docker/docker-compose.yml down
@@ -14,4 +22,4 @@ fclean: clean
 prune:
 	docker system prune -a
 
-.PHONY: clean fclean stop all prune
+.PHONY: all up build rebuild stop clean fclean prune
