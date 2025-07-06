@@ -7,27 +7,60 @@ export function setupFormListener() {
   if (!form)
     return;
 
+  const messageInput = document.getElementById('message') as HTMLInputElement;
+  const serviceInput = document.getElementById('service') as HTMLInputElement;
+
+  let messageErrorDiv = document.createElement('div');
+  messageErrorDiv.classList.add('text-red-400', 'mt-1', 'text-sm');
+  messageInput.parentElement?.appendChild(messageErrorDiv);
+
+  let serviceErrorDiv = document.createElement('div');
+  serviceErrorDiv.classList.add('text-red-400', 'mt-1', 'text-sm');
+  serviceInput.parentElement?.appendChild(serviceErrorDiv);
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const messageInput = document.getElementById('message') as HTMLInputElement;
+    const message = messageInput.value.trim();
+    const service = serviceInput.value.trim();
+
+    let hasError = false;
+
+    if (message.length < 10) {
+      messageErrorDiv.textContent = 'Message length must be at least 10 characters.';
+      hasError = true;
+    } else {
+      messageErrorDiv.textContent = '';
+    }
+
+    if (service.length < 3) {
+      serviceErrorDiv.textContent = 'Service name must be at least 3 characters.';
+      hasError = true;
+    } else {
+      serviceErrorDiv.textContent = '';
+    }
+
+    if (hasError)
+      return;
+
     const levelInput = document.getElementById('level') as HTMLSelectElement;
-    const serviceInput = document.getElementById('service') as HTMLInputElement;
 
     const data = {
-      message: messageInput.value.trim(),
+      message,
       level: levelInput.value,
-      service: serviceInput.value.trim(),
+      service,
       timestamp: new Date().toISOString(),
     };
 
     try {
       await axios.post('http://localhost:8000/api/log', data);
+      form.reset();
     } catch (error) {
       console.log('Error: ', error);
     }
   });
 }
+
 
 // les 20 derniers logs
 export async function displayLogs() {
