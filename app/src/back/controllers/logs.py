@@ -7,7 +7,8 @@ def set_index_name():
 
 async def create_log(log: Log):
     index_name = set_index_name()
-    response = client.index(index=index_name, body=log.dict())
+    response = client.index(index=index_name, body=log.dict(), refresh="wait_for")
+    print("Index response:", response)
     return response
 
 async def get_logs():
@@ -27,7 +28,6 @@ async def get_logs():
     except Exception as e:
         return {"error": str(e)}
 
-
 def search_logs(query: str):
     response = client.search(
         index="logs-*",
@@ -37,7 +37,10 @@ def search_logs(query: str):
                     "query": query,
                     "fields": ["message", "service", "level"]
                 }
-            }
+            },
+            "sort": [
+                {"timestamp": {"order": "desc"}}
+            ]
         }
     )
     return [hit["_source"] for hit in response["hits"]["hits"]]
