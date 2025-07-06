@@ -1,9 +1,9 @@
+import axios from 'axios';
 import { card } from '../components/card.ts';
 
 export function setupFormListener() {
 
   const form = document.getElementById('log-form') as HTMLFormElement;
-
   if (!form)
     return;
 
@@ -22,18 +22,14 @@ export function setupFormListener() {
     };
 
     try {
-      await fetch('http://localhost:8000/api/log', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+      await axios.post('http://localhost:8000/api/log', data);
     } catch (error) {
       console.log('Error: ', error);
     }
   });
 }
 
-// les 20 derniers
+// les 20 derniers logs
 export async function displayLogs() {
 
   const container = document.getElementById('logs-container');
@@ -41,8 +37,9 @@ export async function displayLogs() {
     return;
 
   try {
-    const response = await fetch('http://localhost:8000/api/logs');
-    const logs = await response.json();
+    const response = await axios.get('http://localhost:8000/api/logs');
+    const logs = response.data;
+
     if (Array.isArray(logs)) {
       container.innerHTML = logs.map(card).join('');
     } else {
@@ -54,8 +51,10 @@ export async function displayLogs() {
   }
 }
 
+
 // result de la query
 export function renderLogs(logs) {
+
   const container = document.getElementById('logs-container');
   if (!container)
     return;
@@ -68,6 +67,7 @@ export function renderLogs(logs) {
 }
 
 export function setupSearchBarListener() {
+
   const form = document.getElementById("searchForm");
   const resetBtn = document.getElementById("resetBtn");
 
@@ -80,8 +80,10 @@ export function setupSearchBarListener() {
         return;
 
       try {
-        const res = await fetch(`http://localhost:8000/api/search?query=${encodeURIComponent(query)}`);
-        const data = await res.json();
+        const res = await axios.get(`http://localhost:8000/api/search`, {
+          params: { query }
+        });
+        const data = res.data;
 
         renderLogs(data);
       } catch (error) {
@@ -89,6 +91,7 @@ export function setupSearchBarListener() {
         if (container) {
           container.innerHTML = `<p>Erreur réseau</p>`;
         }
+        console.error(error);
       }
     });
   }

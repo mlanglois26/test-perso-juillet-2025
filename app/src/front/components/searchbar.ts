@@ -10,7 +10,6 @@ export function searchLogs() {
           Reset
         </button>
       </form>
-      <div id="searchResults" class="mt-4 space-y-2"></div>
     </div>
   `;
 }
