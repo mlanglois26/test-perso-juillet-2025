@@ -6,7 +6,7 @@ from src.back.controllers.logs import search_logs
 
 router = APIRouter()
 
-# get all logs
+# get last 20 logs
 @router.get("/api/logs")
 async def route_get_logs():
     return await get_logs()

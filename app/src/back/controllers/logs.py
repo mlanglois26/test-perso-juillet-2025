@@ -13,12 +13,20 @@ async def create_log(log: Log):
 async def get_logs():
     results = []
     try:
-        response = client.search(index="logs-*", body={"query": {"match_all": {}}})
+        response = client.search(
+            index="logs-*",
+            body={
+                "query": {"match_all": {}},
+                "size": 20,
+                "sort": [{"timestamp": {"order": "desc"}}]
+            }
+        )
         for hit in response["hits"]["hits"]:
             results.append(hit["_source"])
         return results
     except Exception as e:
         return {"error": str(e)}
+
 
 def search_logs(query: str):
     response = client.search(

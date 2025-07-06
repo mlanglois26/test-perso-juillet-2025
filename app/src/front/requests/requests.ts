@@ -1,3 +1,5 @@
+import { card } from '../components/card.ts';
+
 export function setupFormListener() {
 
   const form = document.getElementById('log-form') as HTMLFormElement;
@@ -16,6 +18,7 @@ export function setupFormListener() {
       message: messageInput.value.trim(),
       level: levelInput.value,
       service: serviceInput.value.trim(),
+      timestamp: new Date().toISOString(),
     };
 
     try {
@@ -30,20 +33,16 @@ export function setupFormListener() {
   });
 }
 
+export async function displayLogs() {
 
-import { card } from '../components/card.ts';
-
-export async function displayLast20Logs() {
   const container = document.getElementById('logs-container');
   if (!container) return;
 
   try {
     const response = await fetch('http://localhost:8000/api/logs');
     const logs = await response.json();
-    console.log('logs = ', logs);
     if (Array.isArray(logs)) {
-      const last20 = logs.slice(0, 20); // si t'en as que 10, ça prendra 10
-      container.innerHTML = last20.map(card).join('');
+      container.innerHTML = logs.map(card).join('');
     } else {
       container.innerHTML = `<p>Erreur de récupération</p>`;
     }
@@ -52,8 +51,6 @@ export async function displayLast20Logs() {
     console.error(error);
   }
 }
-
-
 
 
 export function setupSearchBarListener() {
