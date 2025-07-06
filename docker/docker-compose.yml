@@ -3,8 +3,17 @@ services:
     build:
       context: ../app
       dockerfile: ../docker/back/Dockerfile
+    environment:
+      - HOST=${HOST}
+      - BACKEND_PORT=${BACKEND_PORT}
+      - OPENSEARCH_HOST=${OPENSEARCH_HOST}
+      - OPENSEARCH_PORT=${OPENSEARCH_PORT}
+      - OPENSEARCH_USER=${OPENSEARCH_USER}
+      - OPENSEARCH_PASSWORD=${OPENSEARCH_PASSWORD}
+    env_file:
+      - ../.env.example
     ports:
-      - "8000:8000"
+       - "${BACKEND_PORT}:${BACKEND_PORT}"
     volumes:
       - ../app:/app
     networks:
@@ -17,14 +26,14 @@ services:
       context: ../app
       dockerfile: ../docker/front/Dockerfile
     ports:
-      - "3000:5173"
+      - "${FRONTEND_PORT}:${VITE_PORT}"
     networks:
       - app-network
     volumes:
       - ../app:/app
       - /app/node_modules
     environment:
-      - VITE_API_URL=http://backend:8000
+      - VITE_API_URL=${VITE_API_URL}
     depends_on:
       - backend
 
@@ -40,8 +49,8 @@ services:
     networks:
       - app-network
     ports:
-      - "9200:9200"
-      - "9600:9600"
+      - "${OPENSEARCH_PORT}:${OPENSEARCH_PORT}"
+      - "${OPENSEARCH_UNUSED_PORT}:${OPENSEARCH_UNUSED_PORT}"
 
   seed:
     image: python:3.11

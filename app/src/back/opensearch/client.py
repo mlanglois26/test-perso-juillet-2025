@@ -6,3 +6,24 @@ client = OpenSearch(
     use_ssl=False,
     verify_certs=False,
 )
+
+# from opensearchpy import OpenSearch
+# from dotenv import load_dotenv
+# import os
+# from pathlib import Path
+
+# env_path = Path(__file__).resolve().parent.parent.parent / '.env.example'
+# print('env_path = ', env_path)
+# load_dotenv(dotenv_path=env_path)
+
+# port = int(os.getenv('OPENSEARCH_PORT'))
+# host = os.getenv('OPENSEARCH_HOST')
+# username = os.getenv('OPENSEARCH_USER', 'admin')
+# password = os.getenv('OPENSEARCH_PASSWORD', 'admin')
+
+# client = OpenSearch(
+#     hosts=[{"host": host, "port": port}],
+#     http_auth=(username, password),
+#     use_ssl=False,
+#     verify_certs=False,
+# )

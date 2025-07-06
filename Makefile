@@ -1,23 +1,23 @@
-all: up
-
-up:
-	docker compose -f ./docker/docker-compose.yml up
+all: build up
 
 build:
-	docker compose -f ./docker/docker-compose.yml build
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml build
+
+up:
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml up
 
 rebuild:
-	docker compose -f ./docker/docker-compose.yml build --no-cache
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml build --no-cache
 
 stop:
-	docker compose -f ./docker/docker-compose.yml down
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml down
 
 clean:
-	docker compose -f ./docker/docker-compose.yml rm -f -v
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml rm -f -v
 
 fclean: clean
-	docker compose -f ./docker/docker-compose.yml down -v
-	docker compose -f ./docker/docker-compose.yml down --rmi all
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml down -v
+	docker compose --env-file .env.example -f ./docker/docker-compose.yml down --rmi all
 
 prune:
 	docker system prune -a
