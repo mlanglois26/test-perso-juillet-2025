@@ -23,7 +23,7 @@ export function renderHome() {
         </div>
 
         <p class="tracking-wide text-stone-100 text-3xl font-semibold text-center mt-6 pt-6">
-          LAST 20 LOGS
+          LOGS
         </p>
         <div id="logs-search">${searchLogs()}</div>
         <div id="logs-container"></div>

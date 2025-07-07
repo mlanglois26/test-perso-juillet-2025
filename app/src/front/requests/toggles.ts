@@ -6,5 +6,4 @@ export function togglePostForm() {
   toggleButton?.addEventListener("click", () => {
     formContainer?.classList.toggle("hidden");
   });
-
 }

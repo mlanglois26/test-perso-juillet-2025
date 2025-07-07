@@ -39,7 +39,7 @@ export function getPostForm() {
           </div>
 
           <div class="flex flex-wrap -mx-3 mb-6 justify-center">
-            <button class="shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
+            <button id="submit-btn" class="shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
               Submit
             </button>
           </div>

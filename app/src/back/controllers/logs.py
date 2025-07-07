@@ -59,7 +59,7 @@ def search_logs(query: Optional[str] = None, level: Optional[str] = None, servic
             }
         },
         "sort": [{"timestamp": {"order": "desc"}}],
-        "size": 35 # la taille de la seed // je sais qu'a terme ce sera problématique puisque je post des logs mais avec un tout petit jeu de données j'ai fait au plus simple
+        "size": 1000 # taille arbitraire // je sais qu'a terme ce sera problématique puisque je post des logs mais avec un tout petit jeu de données j'ai fait au plus simple
     }
 
     response = client.search(index="logs-*", body=body)

@@ -11,6 +11,8 @@ export function setupFormListener() {
 
   const messageInput = document.getElementById('message') as HTMLInputElement;
   const serviceInput = document.getElementById('service') as HTMLInputElement;
+  const resetBtn = document.getElementById("resetBtn");
+
 
   let messageErrorDiv = document.createElement('div');
   messageErrorDiv.classList.add('text-red-400', 'mt-1', 'text-sm');
@@ -57,6 +59,8 @@ export function setupFormListener() {
     try {
       await axios.post(`${API_URL}/api/log`, data);
       form.reset();
+      form.classList.add('hidden');
+      resetBtn?.click();
     } catch (error) {
       console.log('Error: ', error);
     }
