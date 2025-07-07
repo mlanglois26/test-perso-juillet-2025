@@ -2,7 +2,7 @@
   "name": "app-logs",
   "version": "1.0.0",
   "scripts": {
-    "dev": "vite --host"
+    "dev": "[ -f .env ] || cp ../.env.example .env && vite --host"
   },
   "devDependencies": {
     "@types/node": "^24.0.10",

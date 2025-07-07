@@ -8,7 +8,6 @@ def set_index_name():
 async def create_log(log: Log):
     index_name = set_index_name()
     response = client.index(index=index_name, body=log.dict(), refresh="wait_for")
-    print("Index response:", response)
     return response
 
 async def get_logs():

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { card } from '../components/card.ts';
 
+const API_URL = (import.meta as any).env.VITE_BACK_URL;
+
 export function setupFormListener() {
 
   const form = document.getElementById('log-form') as HTMLFormElement;
@@ -53,14 +55,13 @@ export function setupFormListener() {
     };
 
     try {
-      await axios.post('http://localhost:8000/api/log', data);
+      await axios.post(`${API_URL}/api/log`, data);
       form.reset();
     } catch (error) {
       console.log('Error: ', error);
     }
   });
 }
-
 
 // les 20 derniers logs
 export async function displayLogs() {
@@ -70,7 +71,7 @@ export async function displayLogs() {
     return;
 
   try {
-    const response = await axios.get('http://localhost:8000/api/logs');
+    const response = await axios.get(`${API_URL}/api/logs`);
     const logs = response.data;
 
     if (Array.isArray(logs)) {
@@ -84,9 +85,8 @@ export async function displayLogs() {
   }
 }
 
-
 // result de la query
-export function renderLogs(logs) {
+export function renderLogs(logs: any) {
 
   const container = document.getElementById('logs-container');
   if (!container)
@@ -113,7 +113,7 @@ export function setupSearchBarListener() {
         return;
 
       try {
-        const res = await axios.get(`http://localhost:8000/api/search`, {
+        const res = await axios.get(`${API_URL}/api/search`, {
           params: { query }
         });
         const data = res.data;
