@@ -1,4 +1,7 @@
 Run the app with make
 
-Click on Post a form to get the form
-Reset allows you to get the updated list of logs
+Click on 'Post a log' to see the form
+Reset allows you to get the updated list of logs and to reset the searchform
+
+
+(In the result list - size is equal to number of logs created by the seed, not all logs indexed in opensearch)

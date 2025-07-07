@@ -32,6 +32,7 @@ export function searchLogs() {
           id="searchInput"
           class="appearance-none bg-violet-900 border-4 border-solid border-stone-300 rounded w-full text-stone-100 py-2 px-3 focus:outline-none focus:ring-2 focus:ring-violet-700"
           type="text"
+          autocomplete="off"
           placeholder="Search a log"
         >
 
@@ -39,6 +40,7 @@ export function searchLogs() {
           id="serviceFilter"
           class="appearance-none bg-violet-900 border-4 border-solid border-stone-300 rounded w-full text-stone-100 py-2 px-3 "
           type="text"
+          autocomplete="off"
           placeholder="Search a service"
         >
 
