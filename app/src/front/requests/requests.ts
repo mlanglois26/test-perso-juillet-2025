@@ -109,15 +109,18 @@ export function setupSearchBarListener() {
       event.preventDefault();
 
       const query = (document.getElementById("searchInput") as HTMLInputElement).value.trim();
-      if (!query)
+      const level = (document.getElementById("levelFilter") as HTMLSelectElement).value;
+
+      if (!query && !level)
         return;
 
       try {
-        const res = await axios.get(`${API_URL}/api/search`, {
-          params: { query }
-        });
-        const data = res.data;
+        const params: any = {};
+        if (query) params.query = query;
+        if (level) params.level = level;
 
+        const res = await axios.get(`${API_URL}/api/search`, { params });
+        const data = res.data;
         renderLogs(data);
       } catch (error) {
         const container = document.getElementById("logs-container");
@@ -132,6 +135,7 @@ export function setupSearchBarListener() {
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       (document.getElementById("searchInput") as HTMLInputElement).value = "";
+      (document.getElementById("levelFilter") as HTMLSelectElement).value = "";
       displayLogs();
     });
   }

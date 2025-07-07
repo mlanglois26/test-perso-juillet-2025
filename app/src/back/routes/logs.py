@@ -1,4 +1,6 @@
 from fastapi import APIRouter
+from typing import Optional
+from fastapi import Query
 from src.back.models.log import Log
 from src.back.controllers.logs import create_log
 from src.back.controllers.logs import get_logs
@@ -16,8 +18,11 @@ async def route_get_logs():
 async def route_post_log(log: Log):
     return await create_log(log)
 
-# search for logs
+# search for logs (query = message or service) (level = level)
 @router.get("/api/search")
-async def route_search_logs(query: str):
-    results = search_logs(query)
+async def route_search_logs(
+    query: Optional[str] = Query(None),
+    level: Optional[str] = Query(None)
+):
+    results = search_logs(query=query, level=level)
     return results
