@@ -1,7 +1,7 @@
 export function getPostForm() {
   return `
         <form id="log-form" class="h-auto w-1/2 mx-auto mt-8">
-          <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
+          <div class="flex flex-wrap -mx-3 mb-6 justify-center">
             <div class="w-full md:w-1/2 px-3">
               <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Message
@@ -10,7 +10,7 @@ export function getPostForm() {
             </div>
           </div>
 
-          <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
+          <div class="flex flex-wrap -mx-3 mb-6 justify-center">
             <div class="w-full md:w-1/2 px-3">
               <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Service
@@ -19,7 +19,7 @@ export function getPostForm() {
             </div>
           </div>
 
-          <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
+          <div class="flex flex-wrap -mx-3 mb-6 justify-center">
             <div class="w-full md:w-1/2 px-3">
               <label class="block uppercase tracking-wide text-stone-100 text-xs font-semibold mb-2">
                 Level
@@ -38,7 +38,7 @@ export function getPostForm() {
             </div>
           </div>
 
-          <div class="flex flex-wrap -mx-3 mb-6 flex justify-center">
+          <div class="flex flex-wrap -mx-3 mb-6 justify-center">
             <button class="shadow bg-gray-500 hover:bg-gray-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" type="submit">
               Submit
             </button>
