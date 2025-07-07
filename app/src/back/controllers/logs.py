@@ -29,16 +29,13 @@ async def get_logs():
     except Exception as e:
         return {"error": str(e)}
 
-def search_logs(query: Optional[str] = None, level: Optional[str] = None):
+def search_logs(query: Optional[str] = None, level: Optional[str] = None, service: Optional[str] = None):
     should_clauses = []
     filter_clauses = []
 
     if query:
         should_clauses.append({
-            "match": {"message": query}
-        })
-        should_clauses.append({
-            "match": {"service": query}
+            "match": {"message": query}  # ou match_phrase_prefix pour plus de souplesse
         })
 
     if level:
@@ -46,6 +43,11 @@ def search_logs(query: Optional[str] = None, level: Optional[str] = None):
             "term": {
                 "level.keyword": level.upper()
             }
+        })
+
+    if service:
+        filter_clauses.append({
+            "term": {"service.keyword": service}
         })
 
     body = {

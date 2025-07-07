@@ -109,14 +109,16 @@ export function setupSearchBarListener() {
       event.preventDefault();
 
       const query = (document.getElementById("searchInput") as HTMLInputElement).value.trim();
+      const service = (document.getElementById("serviceFilter") as HTMLSelectElement).value.trim();
       const level = (document.getElementById("levelFilter") as HTMLSelectElement).value;
 
-      if (!query && !level)
+      if (!query && !service && !level)
         return;
 
       try {
         const params: any = {};
         if (query) params.query = query;
+        if (service) params.service = service;
         if (level) params.level = level;
 
         const res = await axios.get(`${API_URL}/api/search`, { params });
@@ -135,6 +137,7 @@ export function setupSearchBarListener() {
   if (resetBtn) {
     resetBtn.addEventListener("click", () => {
       (document.getElementById("searchInput") as HTMLInputElement).value = "";
+      (document.getElementById("serviceFilter") as HTMLSelectElement).value = "";
       (document.getElementById("levelFilter") as HTMLSelectElement).value = "";
       displayLogs();
     });
